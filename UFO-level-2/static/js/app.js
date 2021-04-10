@@ -50,9 +50,9 @@ function runEnter() {
  // Get the value property of the input element
   var inputdate = inputElementdate.property("value").trim();
   var inputcity = inputElementcity.property("value").toLowerCase().trim()
-  var inputstate = inputElementstate.property("value").toLowerCase().trim()
-  var inputcountry = inputElementcountry.property("value").toLowerCase().trim()
-  var inputshape = inputElementshape.property("value").toLowerCase().trim
+  // var inputstate = inputElementstate.property("value").toLowerCase().trim()
+  // var inputcountry = inputElementcountry.property("value").toLowerCase().trim()
+  // var inputshape = inputElementshape.property("value").toLowerCase().trim
 
 
   console.log(inputcity); 
@@ -88,15 +88,33 @@ function runEnter() {
   let filteredData = tableData;
 
   console.log(filteredData);
+  filterdate = filteredData.filter(row=> row.datetime === inputdate)
+  filtercity = filteredData.filter(row=>row.city === inputcity)
+  
 
-
-  filteredData = filteredData.filter(row => row.datetime === inputdate && row.city === inputcity && row.state === inputstate)
+  filteredData = filteredData.filter(row => row.datetime === inputdate && row.city === inputcity)
+    //  && row.state === inputstate)
 //   &&(row=>row.country === inputcountry)&&(row=>row.shape === inputshape))
 
 
-  console.log(filteredData);
+  // console.log(filteredData);
 
-  buildTable(filteredData);
+  let response = {
+    filterdate,filtercity,filteredData
+  }
+  if (response.filteredData !== 0) {
+    buildTable(filteredData);
+  }
+  else if (response.filteredData.lenght === 0 && ((response.filterdate.lenght !== 0 || response.filtercity.lenght !== 0 ))){
+    buildTable(filterdate) || buildTable(filtercity);
+  }
+  else {
+  $tbody.append("tr").append("td").text("No Sightings Here...Move On...");
+
+  }
+
+
+  
 
 
 // //   &tbody.html('');

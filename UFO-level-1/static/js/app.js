@@ -52,7 +52,15 @@ function runEnter() {
 
   console.log(filteredData);
 
-  buildTable(filteredData);
+  let response = {filteredData}
+  if (response.filteredData.lenght !== 0){
+    buildTable(filteredData);
+  }
+else {
+  $tbody.append("tr").append("td").text("No Sightings Here...Move On...");
+}
+
+  
 
 
 //   &tbody.html('');
